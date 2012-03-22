@@ -1,0 +1,5 @@
+The project uses sbt 0.10. In the sbt shell, do:
+
+bench -Diterations=10000 scala.Foreach 10
+
+to run a separate jvm process for the benchmark.
