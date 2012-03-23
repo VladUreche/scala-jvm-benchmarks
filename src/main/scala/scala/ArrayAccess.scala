@@ -10,6 +10,10 @@ object ArrayAccessConfig {
 }
 
 
+/** This benchmark tests the VMs ability to inline the `Runtime.array_apply` call
+ *  which performs array application for generic arrays (contains a pattern match
+ *  on the array type).
+ */
 object ArrayAccessGeneric extends Benchmark {
   
   var globalsum = 0

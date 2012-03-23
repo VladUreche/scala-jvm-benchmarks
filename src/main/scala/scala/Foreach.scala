@@ -9,6 +9,11 @@ object ForeachConfig {
 }
 
 
+/** This benchmark tests the VMs ability to inline the `foreach` loop at the callsite,
+ *  and subsequently inline the corresponding closure.
+ *  The comparison is made against a simple `while` loop which is exactly what the `foreach`
+ *  method in the `Range` class contains.
+ */
 object Foreach extends Benchmark {
   
   var globalsum = 0
