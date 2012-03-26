@@ -29,7 +29,7 @@ object BoxUnbox extends Benchmark {
   def snippet() {
     var i = 0
     var sum = 0
-    val limit = ArrayAccessConfig.size
+    val limit = BoxUnboxConfig.size
     while (i < limit) {
       sum += twice(i)
       i += 1
@@ -46,14 +46,10 @@ object BoxUnboxSpecial extends Benchmark {
   
   var globalsum = 0
   
-  implicit val intops = new NumOps[Int] {
-    def plus(a: Int, b: Int) = a + b
-  }
-  
   def snippet() {
     var i = 0
     var sum = 0
-    val limit = ArrayAccessConfig.size
+    val limit = BoxUnboxConfig.size
     while (i < limit) {
       sum += twice(i)
       i += 1

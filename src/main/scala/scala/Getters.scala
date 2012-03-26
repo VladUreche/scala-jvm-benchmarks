@@ -23,7 +23,7 @@ class ScalaInheritedClass extends ScalaBaseClass
 object Getters extends Benchmark {
   
   var globalsum = 0
-  var globalobj = new ScalaBaseClass
+  var globalobj = new ScalaInheritedClass
   
   def snippet() {
     var i = 0
