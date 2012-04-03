@@ -1,0 +1,42 @@
+#! /bin/sh
+
+# 
+# Runs all benchmarks listed here.
+# 
+
+if [[ $# -eq 0 ]]
+then
+  echo "Runs all benchmarks, and specifies benchmark-specific system properties for each of them."
+  echo
+  echo "  Usage: ./run-all \"<jvm> <jvmparams>\""
+  echo
+  echo "  where: <jvm>        - the command that runs the JVM, e.g. 'java'"
+  echo "         <jvmparams>  - the parameters for the JVM"
+  echo
+  echo "  example:    ./run-all \"java -server\""
+  echo
+  exit 0
+fi
+
+
+./run "$@ -Diterations=10000 scala.Closure 10"
+./run "$@ -Diterations=10000 scala.ClosureInlined 10"
+
+./run "$@ -Diterations=10000 scala.ArrayAccessGeneric 10"
+./run "$@ -Diterations=10000 scala.ArrayAccessSpecial 10"
+
+./run "$@ -Diterations=10000 scala.BoxUnbox 10"
+./run "$@ -Diterations=10000 scala.BoxUnboxSpecial 10"
+
+./run "$@ -Diterations=10000 scala.Foreach 10"
+./run "$@ -Diterations=10000 scala.While 10"
+
+./run "$@ -Diterations=10000 scala.Getters 10"
+./run "$@ -Diterations=10000 scala.JavaGetters 10"
+
+./run "$@ -Diterations=10000 scala.TraitCall 10"
+./run "$@ -Diterations=10000 scala.DirectCall 10"
+
+./run "$@ -Diterations=10000 scala.Typeclass 10"
+./run "$@ -Diterations=10000 scala.TypeclassInlined 10"
+

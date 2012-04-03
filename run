@@ -1,0 +1,23 @@
+#! /bin/sh
+
+# 
+# Runs a specific benchmark.
+# 
+
+if [ $# -eq 0 ]
+then
+  echo "Runs a specific benchmark."
+  echo
+  echo "  Usage: ./run \"<jvm> <jvmparams> <classname> <args>\""
+  echo
+  echo "  where: <jvm>        - the command that runs the JVM, e.g. 'java'"
+  echo "         <jvmparams>  - the parameters for the JVM"
+  echo "         <classname>  - the name of the benchmark to run"
+  echo "         <args>       - the arguments for the benchmark, usually the # to repeat it"
+  echo
+  echo "  example:    ./run \"java -Diterations=10000 -server scala.Closure 10\""
+  echo
+  exit 0
+fi
+
+./sbt "custombench $@"

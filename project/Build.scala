@@ -46,13 +46,50 @@ object ScalapoolBuild extends Build {
     }
   }
   
+  val classpath = TaskKey[String](
+    "classpath-flag",
+    "The complete classpath flag."
+  )
+  val classpathSetting = classpath <<= (
+    dependencyClasspath in Compile,
+    artifactPath in (Compile, packageBin),
+    artifactPath in (Test, packageBin),
+    packageBin in Compile,
+    packageBin in Test
+  ) map {
+    (dp, jar, testjar, pbc, pbt) =>
+    val javacommand = "-cp %s:%s:%s".format(
+      dp.map(_.data).mkString(":"),
+      jar,
+      testjar
+    )
+    javacommand
+  }
+  
+  val customBenchTask = InputKey[Unit](
+    "custombench",
+    "Runs a specified benchmark with a custom JVM and parameters."
+  ) <<= inputTask {
+    (argTask: TaskKey[Seq[String]]) =>
+    (argTask, classpath) map {
+      (args, cp) =>
+      val javacommand = args(0) + " " + cp + " " + args.tail.mkString(" ")
+      println("Executing: " + javacommand)
+      javacommand!
+    }
+  }
+  
   /* projects */
   
   lazy val jvmbench = Project(
     "scala-jvm-benchmarks",
     file("."),
-    settings = Defaults.defaultSettings ++ Seq(benchTask, javaCommandSetting)
+    settings = Defaults.defaultSettings ++ Seq(benchTask, customBenchTask, javaCommandSetting, classpathSetting)
   ) dependsOn (
   )
   
 }
+
+
+
+
